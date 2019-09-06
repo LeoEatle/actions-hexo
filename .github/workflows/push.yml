@@ -1,0 +1,22 @@
+
+name: Push workflow
+
+on:
+  push:
+    branches:
+    - master
+    - 'release-v*'
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@master
+
+    - name: Docker build and print Hexo version
+      env:
+        DOCKER_IMAGE: ${{ github.repository }}:${{ github.sha }}
+      run: |
+        docker build . --file Dockerfile --tag ${DOCKER_IMAGE} &&
+        docker run ${DOCKER_IMAGE} version ||
+        (echo -e "\e[31m[${GITHUB_WORKFLOW}] failed to build\e[m" && exit 1)

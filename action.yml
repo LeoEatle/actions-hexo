@@ -1,0 +1,9 @@
+name: 'Hexo build action'
+description: 'GitHub Actions for Hexo extended and Hexo Modules'
+author: 'leoeatle'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'package'
+  color: 'yellow'
